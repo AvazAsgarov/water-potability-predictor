@@ -143,26 +143,8 @@ water-potability-predictor/
 The following diagram illustrates how data flows through the application architecture during execution:
 
 ```mermaid
-graph TD;
-    A[main.py] -->|1| B(dataset.py)
-    B -->|Reads Data| D[(data/water_potability.csv)]
-    B -.->|Generates Sets| E[Train/Test Split]
-    B -.->|Transforms| F[StandardScaler]
-    B -.->|Formats Batch| G[PyTorch DataLoader]
-    
-    A -->|2| H(visualize.py)
-    H -->|Exploratory Plots| I[Saved to assets]
-    
-    A -->|3| J(model.py)
-    J -->|Instantiates| K[Deep Learning Classifier]
-    
-    A -->|4| L(train.py)
-    G --> L
-    K --> L
-    L -->|Backpropagation| M[Tuned Weights]
-    L -->|Hooks| H
-    
-    A -->|5| N(evaluate.py)
-    K --> N
-    N -->|Prediction Validates| O[Test Accuracy]
+graph LR;
+    A[Raw Data] --> B[Data Preprocessing] --> C[Train/Test Split] --> D[DataLoader] --> E[Model] --> F[Training] --> G[Trained Model] --> H[Evaluation] --> I[Metrics]
+
+    B --> J[Visualization] --> K[Saved Plots]
 ```
